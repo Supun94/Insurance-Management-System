@@ -1,0 +1,55 @@
+drop database Insurance;
+CREATE database Insurance;
+
+USE Insurance;
+
+CREATE TABLE Customer(
+	Nic VARCHAR(20) NOT NULL,
+	FirstName VARCHAR(80) NOT NULL,
+	LastName VARCHAR(80) NOT NULL,	
+	Dob DATE,	
+	Address VARCHAR(90) NOT NULL,
+	ContactNo VARCHAR(90) NOT NULL,
+	CONSTRAINT PRIMARY KEY (Nic)
+)ENGINE=INNODB;
+
+
+CREATE TABLE Policy(
+	Nic VARCHAR(20) NOT NULL,
+	PolicyID VARCHAR(20) NOT NULL,
+	PolicyType VARCHAR(60) NOT NULL,
+	Amount DECIMAL(50,2) NOT NULL,
+	StartDate DATE,
+	CONSTRAINT PRIMARY KEY (PolicyID),
+	CONSTRAINT FOREIGN KEY (Nic) REFERENCES Customer(Nic)
+	ON UPDATE CASCADE ON DELETE CASCADE
+)ENGINE=INNODB;	
+
+CREATE TABLE Claim(
+	ClaimID VARCHAR(20) NOT NULL,
+	PolicyID VARCHAR(20) NOT NULL,
+	ClaimDate DATE,
+	ClaimAmount DECIMAL(50,2) NOT NULL,
+	Description VARCHAR(90) NOT NULL,
+	CONSTRAINT PRIMARY KEY (ClaimID),
+	CONSTRAINT FOREIGN KEY (PolicyID) REFERENCES Policy(PolicyID)
+	ON UPDATE CASCADE ON DELETE CASCADE
+)ENGINE=INNODB;
+
+create table user(
+	userName varchar(100) not null,
+	password varchar(100) not null,
+	privilage int(10) not null,
+	constraint primary key(userName)
+)ENGINE=INNODB;
+
+//0 - admin
+//1 - user
+
+
+insert into user values('root',password('123'),0);
+insert into user values('user',password('234'),1);
+
+insert into user values('940150310V','L0001','Life',50000,2014/12/31);
+
+
